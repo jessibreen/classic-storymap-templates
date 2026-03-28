@@ -1,3 +1,9 @@
+## Attribution
+
+This template is adapted from [storymap-basic](https://github.com/Esri/storymap-basic), a classic Esri Story Maps layout originally developed by Esri and released under the Apache 2.0 license. The original project is no longer actively maintained.
+
+---
+
 # Student Spatial Story Template (GitHub Pages)
 
 This folder is a simplified storytelling template for students.
