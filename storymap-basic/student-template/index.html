@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Story Map Template</title>
+  <meta name="description" content="A simple spatial storytelling template for GitHub Pages.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-scrim"></div>
+    <img id="heroImage" class="hero-image" alt="">
+    <div class="hero-content">
+      <p id="storyKicker" class="kicker"></p>
+      <h1 id="storyTitle"></h1>
+      <p id="storySubtitle" class="subtitle"></p>
+      <p id="storyAuthor" class="author"></p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="story-panel" aria-label="Story narrative">
+      <article class="story-intro">
+        <h2>Story Overview</h2>
+        <p id="storyIntro"></p>
+      </article>
+
+      <div id="storySections" class="story-sections"></div>
+    </section>
+
+    <aside class="map-panel" aria-label="Map view">
+      <div class="map-wrap">
+        <h2 id="activeSectionTitle" class="map-title"></h2>
+        <iframe
+          id="mapFrame"
+          class="map-frame"
+          title="Interactive map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+        <p class="map-actions">
+          <a id="mapSourceLink" target="_blank" rel="noopener noreferrer">Open map in new tab</a>
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p id="storyCredits"></p>
+  </footer>
+
+  <script src="story.config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

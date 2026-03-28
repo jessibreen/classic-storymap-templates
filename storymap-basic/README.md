@@ -10,6 +10,26 @@
 
 # Story Map Basic
 
+## GitHub Pages Student Template
+
+This repository now includes a student-friendly starter in [student-template](student-template/) that works as a plain static site on GitHub Pages (no build tooling).
+
+Use this when you want learners to:
+
+1. Add their own narrative text
+2. Add their own self-hosted images
+3. Embed their own maps (ArcGIS, Leaflet pages, Mapbox pages, etc.)
+
+Quick start:
+
+1. Open [student-template/story.config.js](student-template/story.config.js)
+2. Replace the sample title, author, text, image URLs, and map embed URLs
+3. Commit and push to a GitHub repository
+4. Enable GitHub Pages in repository settings (deploy from branch)
+5. Share the published Pages URL
+
+See [student-template/README.md](student-template/README.md) for full setup and classroom workflow.
+
 The Story Map Basic app is a simple map viewer with a minimalist user interface. Apart from the title bar and an optional legend, the map fills the screen. Use this app to let your map speak for itself. Your users can click features on the map to get more information in pop-ups.
 
 ![App](https://cloud.githubusercontent.com/assets/3215530/11311433/db81ee72-8f9d-11e5-8ae5-7147b85062fc.jpg)
