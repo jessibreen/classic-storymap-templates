@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Map Swipe</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="story.config.js"></script>
+</head>
+<body>
+  <div id="mainWindow">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HEADER BAR  (111px tall, matches the original Swipe layout)
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="header">
+      <div id="headerDesktop">
+        <div class="textArea">
+          <h1 id="title"></h1>
+          <h2 id="subtitle"></h2>
+        </div>
+        <div class="rightArea">
+          <div class="logoContainer">
+            <a id="logoLink" href="#" target="_blank" rel="noopener noreferrer">
+              <img id="logoImg" class="logoImg" alt="Logo">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CONTENT AREA  (fills remaining screen height)
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="contentPanel">
+
+      <!-- ── Side panel (description text, slides open/closed) ── -->
+      <div id="sidePanel">
+        <div id="descriptionPanel">
+          <div id="descriptionTitle"></div>
+          <div id="descriptionContent"></div>
+        </div>
+        <!-- Toggle arrow tab on the right edge of the panel -->
+        <div id="sidePanelToggle" title="Toggle panel">&#8249;</div>
+      </div>
+
+      <!-- ── Map panel (holds both maps + drag handle) ── -->
+      <div id="mapPanel">
+
+        <!-- Invisible overlay shown during drag to prevent iframes
+             from absorbing mouse/touch events before we handle them -->
+        <div id="dragOverlay"></div>
+
+        <!-- MAP 1 — RIGHT / BEHIND (always fills the full panel) -->
+        <iframe id="map1Frame" title="Map 1" allowfullscreen></iframe>
+
+        <!-- MAP 2 — LEFT / FRONT (clipped by #swipeDiv width) -->
+        <div id="swipeDiv">
+          <iframe id="map2Frame" title="Map 2" allowfullscreen></iframe>
+        </div>
+
+        <!-- Draggable divider handle -->
+        <div id="swipeHandle">
+          <div id="swipeHandleIcon">&#9664;&#9654;</div>
+        </div>
+
+        <!-- Corner labels identifying each map -->
+        <div class="mapLabel left"  id="labelLeft"></div>
+        <div class="mapLabel right" id="labelRight"></div>
+
+      </div><!-- /#mapPanel -->
+
+    </div><!-- /#contentPanel -->
+
+  </div><!-- /#mainWindow -->
+
+  <script src="app.js"></script>
+</body>
+</html>

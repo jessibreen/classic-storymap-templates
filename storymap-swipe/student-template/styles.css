@@ -1,0 +1,297 @@
+/* ================================================================
+   Story Map Swipe — Student Template
+   Replicates the visual layout of the original Esri Story Map Swipe
+   ================================================================ */
+
+/* --- CSS custom properties (values applied at runtime by app.js) --- */
+:root {
+  --bg-color:       #444444;
+  --fg-color:       #ffffff;
+  --subtitle-color: #C5D5D5;
+  --header-height:  111px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+/* ─────────────────────────────────────────────
+   MAIN WINDOW  (flex column filling full screen)
+   ───────────────────────────────────────────── */
+#mainWindow {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ─────────────────────────────────────────────
+   HEADER  (111px, dark background)
+   ───────────────────────────────────────────── */
+#header {
+  height: var(--header-height);
+  background: var(--bg-color);
+  color: var(--fg-color);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+#headerDesktop {
+  height: 100%;
+  position: relative;
+}
+
+/* Title + subtitle block on the left */
+#header .textArea {
+  padding: 0 290px 0 25px; /* right padding leaves room for the logo area */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#header h1#title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#header h2#subtitle {
+  margin: 13px 0 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--subtitle-color);
+  max-height: 54px;
+  overflow-y: auto;
+}
+
+/* Logo area on the right */
+#header .rightArea {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.logoContainer a {
+  display: block;
+  line-height: 0;
+}
+
+.logoContainer img.logoImg {
+  max-width: 250px;
+  max-height: 50px;
+}
+
+/* ─────────────────────────────────────────────
+   CONTENT PANEL  (fills the rest of the screen)
+   ───────────────────────────────────────────── */
+#contentPanel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────
+   MAP PANEL  (behind the side panel, full size)
+   ───────────────────────────────────────────── */
+#mapPanel {
+  position: absolute;
+  inset: 0;
+  background: #eeeeee;
+}
+
+/* The drag overlay is shown during a swipe drag to prevent
+   the iframes from swallowing mouse/touch events.           */
+#dragOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: none;
+  cursor: col-resize;
+}
+
+/* MAP 1 — always fills the full panel, sits behind map 2 */
+#map1Frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* MAP 2 — the clip container; its width is controlled by JS */
+#swipeDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+  /* width set by app.js */
+}
+
+/* The map 2 iframe is always full-panel-width so it doesn't
+   appear squished inside the clipping container.            */
+#map2Frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border: none;
+  /* width set by app.js to mapPanel.offsetWidth */
+}
+
+/* ─────────────────────────────────────────────
+   SWIPE HANDLE  (draggable vertical divider)
+   Matches the original: 12px wide, #dadada, dark border
+   ───────────────────────────────────────────── */
+#swipeHandle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: #dadada;
+  border-left:  1px solid #848484;
+  border-right: 1px solid #848484;
+  cursor: col-resize;
+  z-index: 20;
+  transform: translateX(-50%);
+  /* left position set by app.js */
+}
+
+/* Circular icon centered on the handle — shows ◀▶ arrows */
+#swipeHandleIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #555;
+  letter-spacing: 3px;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   MAP LABELS  (corner badges identifying each map)
+   ───────────────────────────────────────────── */
+.mapLabel {
+  position: absolute;
+  bottom: 30px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 3px;
+  font-size: 13px;
+  z-index: 10;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 38%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.2s;
+}
+
+.mapLabel.left  { left:  15px; }
+.mapLabel.right { right: 15px; }
+
+/* ─────────────────────────────────────────────
+   SIDE PANEL  (description text, slides over map)
+   Matches original: 355px wide, position absolute
+   ───────────────────────────────────────────── */
+#sidePanel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 355px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+}
+
+#sidePanel.collapsed {
+  transform: translateX(-355px);
+}
+
+/* Toggle tab on the right edge of the panel */
+#sidePanelToggle {
+  position: absolute;
+  right: -25px;    /* sticks out past the panel's right edge */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 45px;
+  background: #718fa0;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  line-height: 1;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+#sidePanelToggle:hover {
+  background: #5a7a8c;
+}
+
+/* ─────────────────────────────────────────────
+   DESCRIPTION PANEL  (inside the side panel)
+   ───────────────────────────────────────────── */
+#descriptionPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #ececec;
+  overflow: hidden;
+  min-height: 0;
+}
+
+#descriptionTitle {
+  padding: 12px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #ececec;
+  flex-shrink: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#descriptionContent {
+  flex: 1;
+  background: white;
+  overflow-y: auto;
+  padding: 15px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#descriptionContent p { margin: 0 0 0.8em; }
+#descriptionContent p:last-child { margin-bottom: 0; }
