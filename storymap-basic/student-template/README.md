@@ -4,66 +4,57 @@ This template is adapted from [storymap-basic](https://github.com/Esri/storymap-
 
 ---
 
-# Student Spatial Story Template (GitHub Pages)
+# Student Story Map Basic Replica (GitHub Pages)
 
-This folder is a simplified storytelling template for students.
+This folder replicates the classic Story Map Basic page structure as static files:
 
-- No build tools
-- No package installs
-- Works as static files on GitHub Pages
-- One config file to edit: `story.config.js`
+- Header bar at the top (title, subtitle, optional logo, share icons)
+- Full-screen map beneath the header
+- Collapsible info panel over the map at bottom-left
+
+No build tools are required.
 
 ## Folder Contents
 
-- `index.html`: page structure
-- `styles.css`: visual design and responsive layout
-- `app.js`: renders sections and keeps map in sync while scrolling
-- `story.config.js`: your story title, text, images, and maps
+- `index.html`: Story Map Basic style structure (header + map + info panel)
+- `styles.css`: Story Map Basic style layout and visual rules
+- `app.js`: connects config to DOM, share links, and info panel toggle
+- `story.config.js`: all editable content and styling options
 
-## Step 1: Add Your Story Content
+## Step 1: Edit `story.config.js`
 
-Edit `story.config.js` and replace sample values:
+Update these sections:
 
-- `title`, `subtitle`, `author`, `intro`
-- `heroImage` and `credits`
-- each item in `sections`
-
-Each section supports:
-
-- `title`: section heading
-- `text`: your narrative paragraph
-- `imageUrl`: full URL to an image (or a path to an image in this repo)
-- `imageAlt`: accessible alt text for your image
-- `mapEmbedUrl`: embeddable map URL shown in the map panel
-- `mapSourceUrl`: URL opened by the "Open map in new tab" link
+- `pageTitle`, `metaDescription`
+- `header.title`, `header.subtitle`, `header.headerHeight`
+- `header.background`, `header.color`, `header.subtitleColor`
+- `branding.showLogo`, `branding.logo`, `branding.logoLink`
+- `social.showSocialIcons`, `social.hashtags`
+- `map.embedUrl`, `map.sourceUrl`
+- `map.legendTitle`, `map.legendHtml`, `map.legendOpen`
 
 ## Step 2: Test Locally
 
-Open `index.html` in your browser.
-
-If your browser blocks some embeds because of local file restrictions, run a simple local web server from this folder.
-
-Example using Python:
+Open `index.html` directly, or run a local server:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then open:
+Then visit:
 
 `http://localhost:8080/index.html`
 
 ## Step 3: Publish To GitHub Pages
 
-1. Push your repository to GitHub
-2. Open repository Settings > Pages
-3. Under Build and deployment, select `Deploy from a branch`
-4. Choose your branch (usually `main`) and folder (`/root`)
-5. Save and wait for deployment
-6. Open your new published Pages URL
+1. Push your repository to GitHub.
+2. Open repository Settings > Pages.
+3. Under Build and deployment, choose `Deploy from a branch`.
+4. Select your branch (usually `main`) and folder (`/root`).
+5. Save and wait for deployment.
 
 ## Map Embed Notes
 
-- ArcGIS, Mapbox, and many other web maps provide iframe embed links
-- Some providers block iframe embedding unless sharing/privacy settings allow it
-- If an embed is blocked, students can still use a public map page URL in `mapSourceUrl`
+- Use an embeddable map URL for `map.embedUrl`.
+- Some map providers block iframe embedding unless sharing settings are public.
+- `map.sourceUrl` is shown as the "Open full map" link.

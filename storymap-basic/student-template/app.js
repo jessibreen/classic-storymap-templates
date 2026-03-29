@@ -1,136 +1,107 @@
 (function () {
   "use strict";
 
-  var config = window.STORY_CONFIG;
+  var config = window.STORY_CONFIG || {};
+  var header = config.header || {};
+  var branding = config.branding || {};
+  var map = config.map || {};
 
-  if (!config || !Array.isArray(config.sections) || config.sections.length === 0) {
-    throw new Error("STORY_CONFIG is missing or has no sections.");
+  var titleNode = document.getElementById("title");
+  var subtitleNode = document.getElementById("subtitle");
+  var logoLinkNode = document.getElementById("logoLink");
+  var logoImgNode = document.getElementById("logoImg");
+
+  var mapFrameNode = document.getElementById("mapFrame");
+  var mapSourceLinkNode = document.getElementById("mapSourceLink");
+
+  var legendContainerNode = document.getElementById("legendCon");
+  var legendToggleNode = document.getElementById("legendToggle");
+  var legendTitleNode = document.getElementById("legTogText");
+  var legendContentNode = document.getElementById("legendDiv");
+  var legendIconNode = document.getElementById("legToggleIcon");
+
+  function setMetaTag(name, content) {
+    var node = document.querySelector('meta[name="' + name + '"]');
+    if (!node) {
+      node = document.createElement("meta");
+      node.setAttribute("name", name);
+      document.head.appendChild(node);
+    }
+    node.setAttribute("content", content || "");
   }
 
-  var sectionContainer = document.getElementById("storySections");
-  var storyTitle = document.getElementById("storyTitle");
-  var storySubtitle = document.getElementById("storySubtitle");
-  var storyKicker = document.getElementById("storyKicker");
-  var storyAuthor = document.getElementById("storyAuthor");
-  var storyIntro = document.getElementById("storyIntro");
-  var storyCredits = document.getElementById("storyCredits");
-  var heroImage = document.getElementById("heroImage");
-  var activeSectionTitle = document.getElementById("activeSectionTitle");
-  var mapFrame = document.getElementById("mapFrame");
-  var mapSourceLink = document.getElementById("mapSourceLink");
+  function applyTheme() {
+    var rootStyle = document.documentElement.style;
 
-  var sectionElements = [];
-  var activeSectionId = null;
-
-  storyTitle.textContent = config.title || "Untitled Story";
-  storySubtitle.textContent = config.subtitle || "";
-  storyKicker.textContent = config.kicker || "";
-  storyAuthor.textContent = config.author || "";
-  storyIntro.textContent = config.intro || "";
-  storyCredits.textContent = config.credits || "";
-
-  if (config.heroImage) {
-    heroImage.src = config.heroImage;
-    heroImage.alt = config.title || "Story hero image";
-  } else {
-    heroImage.style.display = "none";
+    rootStyle.setProperty("--bg-color", header.background || "#444444");
+    rootStyle.setProperty("--fg-color", header.color || "#ffffff");
+    rootStyle.setProperty("--subtitle-color", header.subtitleColor || "#cecece");
+    rootStyle.setProperty("--header-height", (header.headerHeight || 115) + "px");
   }
 
-  function createSectionCard(section) {
-    var card = document.createElement("article");
-    card.className = "story-card";
-    card.id = section.id;
-    card.setAttribute("tabindex", "0");
+  function populateHeader() {
+    titleNode.textContent = header.title || "Untitled Story";
+    subtitleNode.textContent = header.subtitle || "";
 
-    var title = document.createElement("h3");
-    title.textContent = section.title || "Untitled Section";
-
-    var text = document.createElement("p");
-    text.textContent = section.text || "";
-
-    card.appendChild(title);
-    card.appendChild(text);
-
-    if (section.imageUrl) {
-      var image = document.createElement("img");
-      image.className = "story-image";
-      image.src = section.imageUrl;
-      image.alt = section.imageAlt || section.title || "Section image";
-      image.loading = "lazy";
-      card.appendChild(image);
+    if (header.showTitle === false) {
+      titleNode.style.display = "none";
     }
 
-    card.addEventListener("click", function () {
-      setActiveSection(section.id, true);
-    });
-
-    card.addEventListener("keydown", function (event) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        setActiveSection(section.id, true);
-      }
-    });
-
-    return card;
-  }
-
-  function setActiveSection(sectionId, shouldScrollIntoView) {
-    if (activeSectionId === sectionId) {
-      return;
+    if (header.showSubtitle === false) {
+      subtitleNode.style.display = "none";
     }
 
-    var target = null;
-    for (var i = 0; i < config.sections.length; i += 1) {
-      if (config.sections[i].id === sectionId) {
-        target = config.sections[i];
-        break;
-      }
-    }
-
-    if (!target) {
-      return;
-    }
-
-    activeSectionId = sectionId;
-    activeSectionTitle.textContent = target.title || "";
-    mapFrame.src = target.mapEmbedUrl || "about:blank";
-    mapSourceLink.href = target.mapSourceUrl || target.mapEmbedUrl || "#";
-
-    sectionElements.forEach(function (el) {
-      el.classList.toggle("is-active", el.id === sectionId);
-    });
-
-    if (shouldScrollIntoView) {
-      var node = document.getElementById(sectionId);
-      if (node) {
-        node.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
+    if (branding.showLogo === false || !branding.logo) {
+      logoLinkNode.style.display = "none";
+    } else {
+      logoImgNode.src = branding.logo;
+      logoImgNode.alt = header.title || "Logo";
+      logoLinkNode.href = branding.logoLink || "#";
     }
   }
 
-  config.sections.forEach(function (section, index) {
-    if (!section.id) {
-      section.id = "section-" + (index + 1);
+  function applyMap() {
+    mapFrameNode.src = map.embedUrl || "about:blank";
+
+    if (map.sourceUrl) {
+      mapSourceLinkNode.href = map.sourceUrl;
+    } else {
+      mapSourceLinkNode.style.display = "none";
+    }
+  }
+
+  function applyLegend() {
+    legendTitleNode.textContent = map.legendTitle || "About this map";
+    legendContentNode.innerHTML = map.legendHtml || "";
+
+    var isOpen = Boolean(map.legendOpen);
+
+    function renderLegendState() {
+      legendContentNode.style.display = isOpen ? "block" : "none";
+      legendIconNode.textContent = isOpen ? "^" : "v";
     }
 
-    var card = createSectionCard(section);
-    sectionContainer.appendChild(card);
-    sectionElements.push(card);
-  });
-
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        setActiveSection(entry.target.id, false);
-      }
+    legendToggleNode.addEventListener("click", function () {
+      isOpen = !isOpen;
+      renderLegendState();
     });
-  }, {
-    threshold: 0.55
-  });
 
-  sectionElements.forEach(function (el) {
-    observer.observe(el);
-  });
+    renderLegendState();
 
-  setActiveSection(config.sections[0].id, false);
+    if (!map.legendTitle && !map.legendHtml) {
+      legendContainerNode.style.display = "none";
+    }
+  }
+
+  function init() {
+    document.title = config.pageTitle || header.title || "Story Map";
+    setMetaTag("description", config.metaDescription || "");
+
+    applyTheme();
+    populateHeader();
+    applyMap();
+    applyLegend();
+  }
+
+  init();
 })();
