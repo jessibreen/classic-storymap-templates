@@ -8,7 +8,7 @@ This template is adapted from [storymap-basic](https://github.com/Esri/storymap-
 
 This folder replicates the classic Story Map Basic page structure as static files:
 
-- Header bar at the top (title, subtitle, optional logo, share icons)
+- Header bar at the top (title, subtitle, optional logo)
 - Full-screen map beneath the header
 - Collapsible info panel over the map at bottom-left
 
@@ -16,20 +16,39 @@ No build tools are required.
 
 ## Folder Contents
 
-- `index.html`: Story Map Basic style structure (header + map + info panel)
-- `styles.css`: Story Map Basic style layout and visual rules
-- `app.js`: connects config to DOM, share links, and info panel toggle
-- `story.config.js`: all editable content and styling options
+- `index.html`: page structure (you usually do not need to edit this)
+- `styles.css`: colors and layout style (optional to edit)
+- `app.js`: behavior for the map and info panel (you usually do not need to edit this)
+- `story.config.js`: the main file students should edit
 
-## Step 1: Edit `story.config.js`
+## Quick Start For Students
 
-Update these sections:
+Most students only need to edit `story.config.js`.
+
+1. Open `story.config.js`.
+2. Use Find (`Cmd+F`) and search for `REPLACE_ME`.
+3. Replace each `REPLACE_ME` value with your own text or URL.
+4. Save the file.
+5. Refresh the browser tab.
+
+If you get stuck, edit these first:
+
+- `pageTitle`
+- `header.title`
+- `header.subtitle`
+- `map.embedUrl`
+- `map.sourceUrl`
+- `map.legendTitle`
+- `map.legendHtml`
+
+## Optional Customization
+
+You can also edit these if needed:
 
 - `pageTitle`, `metaDescription`
 - `header.title`, `header.subtitle`, `header.headerHeight`
 - `header.background`, `header.color`, `header.subtitleColor`
 - `branding.showLogo`, `branding.logo`, `branding.logoLink`
-- `social.showSocialIcons`, `social.hashtags`
 - `map.embedUrl`, `map.sourceUrl`
 - `map.legendTitle`, `map.legendHtml`, `map.legendOpen`
 
@@ -44,6 +63,8 @@ python3 -m http.server 8080
 Then visit:
 
 `http://localhost:8080/index.html`
+
+If you do not see your updates, refresh the browser tab.
 
 ## Step 3: Publish To GitHub Pages
 
