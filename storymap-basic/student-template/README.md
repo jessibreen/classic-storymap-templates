@@ -4,7 +4,7 @@ This template is adapted from [storymap-basic](https://github.com/Esri/storymap-
 
 ---
 
-# Student Story Map Basic Replica (GitHub Pages)
+# Story Map Basic Replica (GitHub Pages)
 
 This folder replicates the classic Story Map Basic page structure as static files:
 
@@ -19,17 +19,25 @@ No build tools are required.
 - `index.html`: page structure (you usually do not need to edit this)
 - `styles.css`: colors and layout style (optional to edit)
 - `app.js`: behavior for the map and info panel (you usually do not need to edit this)
-- `story.config.js`: the main file students should edit
+- `story.config.js`: the main file users should edit
 
-## Quick Start For Students
+## Quick Start
 
-Most students only need to edit `story.config.js`.
+Most users only need to edit `story.config.js`.
 
 1. Open `story.config.js`.
-2. Use Find (`Cmd+F`) and search for `REPLACE_ME`.
-3. Replace each `REPLACE_ME` value with your own text or URL.
-4. Save the file.
-5. Refresh the browser tab.
+2. Replace these values with your own text:
+	- `pageTitle`
+	- `header.title`
+	- `header.subtitle`
+3. Add your logo file to this folder:
+	- `images/logo.png`
+4. In `story.config.js`, keep `branding.logo` as `"./images/logo.png"` (or change both file name and path to match).
+5. Add your map links:
+	- `map.embedUrl`
+	- `map.sourceUrl`
+6. Save the file.
+7. Refresh the browser tab.
 
 If you get stuck, edit these first:
 

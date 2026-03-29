@@ -57,6 +57,9 @@
     if (branding.showLogo === false || !branding.logo) {
       logoLinkNode.style.display = "none";
     } else {
+      logoImgNode.onerror = function () {
+        logoLinkNode.style.display = "none";
+      };
       logoImgNode.src = branding.logo;
       logoImgNode.alt = header.title || "Logo";
       logoLinkNode.href = branding.logoLink || "#";
