@@ -267,7 +267,7 @@ html, body {
    DESCRIPTION PANEL  (inside the side panel)
    ───────────────────────────────────────────── */
 #descriptionPanel {
-  flex: 1;
+  flex: 1 1 55%;
   display: flex;
   flex-direction: column;
   background: #ececec;
@@ -295,3 +295,72 @@ html, body {
 
 #descriptionContent p { margin: 0 0 0.8em; }
 #descriptionContent p:last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────
+   LEGEND SECTION  (below description in the side panel)
+   Original: #legendTitle 25px bar + #legendPanel split 50/50
+   ───────────────────────────────────────────── */
+#legendSection {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #bbb;
+  min-height: 0;
+}
+
+/* Thin label bar above the legend content */
+#legendTitle {
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  background: white;
+  font-size: 12px;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+/* Two-column split — left column = map2 legend, right = map1 legend */
+#legendPanel {
+  display: flex;
+  background: white;
+  overflow-y: auto;
+  padding: 10px 15px;
+  gap: 10px;
+  flex: 1;
+}
+
+#legend0,
+#legend1 {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.legend-map-title {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+}
+
+/* Legend swatch helper classes students can use inside their legend HTML:
+   <span class="swatch" style="background:#e63946"></span> Label         */
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 5px;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+/* Hide the whole legend section if both legends are empty */
+#legendSection.hidden {
+  display: none;
+}

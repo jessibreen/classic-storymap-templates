@@ -172,6 +172,40 @@
     setSwipePosition(initialPct);
   }
 
+  // ─── Legend panel ─────────────────────────────────────────────────────────────
+  function applyLegend(cfg) {
+    var maps         = cfg.maps || {};
+    var legend0Html  = (maps.map2 && maps.map2.legendHtml) || '';
+    var legend1Html  = (maps.map1 && maps.map1.legendHtml) || '';
+    var legend0Title = (maps.map2 && maps.map2.label) || '';
+    var legend1Title = (maps.map1 && maps.map1.label) || '';
+
+    var legend0El  = document.getElementById('legend0');
+    var legend1El  = document.getElementById('legend1');
+    var legendSec  = document.getElementById('legendSection');
+    var legendTitle = document.getElementById('legendTitle');
+
+    // If neither map provides legend HTML, hide the whole section
+    if (!legend0Html && !legend1Html) {
+      if (legendSec) legendSec.classList.add('hidden');
+      return;
+    }
+
+    if (legend0El) {
+      legend0El.innerHTML = (legend0Title ? '<div class="legend-map-title">' + legend0Title + '</div>' : '') + legend0Html;
+    }
+    if (legend1El) {
+      legend1El.innerHTML = (legend1Title ? '<div class="legend-map-title">' + legend1Title + '</div>' : '') + legend1Html;
+    }
+
+    // If only one map has a legend, make it full-width
+    if (legend0Html && !legend1Html && legend0El) legend0El.style.flex = '1 1 100%';
+    if (legend1Html && !legend0Html && legend1El) legend1El.style.flex = '1 1 100%';
+
+    var customTitle = cfg.legend && cfg.legend.title;
+    if (customTitle && legendTitle) legendTitle.textContent = customTitle;
+  }
+
   // ─── Side panel open/close toggle ───────────────────────────────────────────
   function initSidePanel() {
     var panel  = document.getElementById('sidePanel');
@@ -201,6 +235,7 @@
     applyHeader(cfg);
     applyMaps(cfg);
     applyDescription(cfg);
+    applyLegend(cfg);
     initSwipe(cfg);
     initSidePanel();
   }

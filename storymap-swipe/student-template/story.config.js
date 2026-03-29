@@ -93,6 +93,24 @@ window.STORY_CONFIG = {
 
       // Short label shown in the bottom-right corner of the map:
       label: 'Right Map Name',
+
+      // ── Legend for this map (shown in the right half of the legend panel) ──
+      // Delete or leave blank if this map doesn't need a legend.
+      //
+      // You can use basic HTML. To add a colour swatch, use:
+      //   <span class="swatch" style="background: #e63946"></span> Label
+      //
+      // Example — a simple choropleth legend:
+      //
+      //   legendHtml: '<ul style="list-style:none;padding:0;margin:0">'
+      //     + '<li><span class="swatch" style="background:#d73027"></span> > 50%</li>'
+      //     + '<li><span class="swatch" style="background:#fc8d59"></span> 40–50%</li>'
+      //     + '<li><span class="swatch" style="background:#fee090"></span> 30–40%</li>'
+      //     + '<li><span class="swatch" style="background:#e0f3f8"></span> 20–30%</li>'
+      //     + '<li><span class="swatch" style="background:#4575b4"></span> < 20%</li>'
+      //   + '</ul>',
+      //
+      legendHtml: '',   // ← paste your legend HTML here, or leave empty
     },
 
     // MAP 2 — shown on the LEFT / IN FRONT of the divider
@@ -102,6 +120,9 @@ window.STORY_CONFIG = {
 
       // Short label shown in the bottom-left corner of the map:
       label: 'Left Map Name',
+
+      // ── Legend for this map (shown in the left half of the legend panel) ──
+      legendHtml: '',   // ← paste your legend HTML here, or leave empty
     },
 
     // Where the divider line starts when the page first loads.
@@ -112,7 +133,16 @@ window.STORY_CONFIG = {
   },
 
 
-  // ── STEP 5: Side panel text ────────────────────────────────
+  // ── STEP 5: Legend (optional) ────────────────────────────────
+  // The bottom of the side panel can show a colour legend for each map.
+  // Add your legend HTML inside map1.legendHtml and map2.legendHtml above.
+  // To customize the legend section title, change the text below:
+  legend: {
+    title: 'Legend',
+  },
+
+
+  // ── STEP 6: Side panel text ───────────────────────────────────
   // This panel slides open on the left side of the screen.
   // Use it to explain what the two maps show and why it matters.
   description: {
