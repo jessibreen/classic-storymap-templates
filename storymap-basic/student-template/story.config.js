@@ -60,10 +60,12 @@ window.STORY_CONFIG = {
   // STEP 5: Map and info panel settings.
   map: {
     // REQUIRED: embeddable map URL for the main map window.
-    embedUrl: "REPLACE_ME: Paste your embeddable map URL here",
+    // This starter URL is functional. Replace it with your own map when ready.
+    embedUrl: "https://www.openstreetmap.org/export/embed.html?bbox=-74.03%2C40.70%2C-73.93%2C40.78&layer=mapnik",
 
     // REQUIRED: full map link for the "Open full map" button.
-    sourceUrl: "REPLACE_ME: Paste your full map URL here",
+    // This starter URL is functional. Replace it with your own map page URL.
+    sourceUrl: "https://www.openstreetmap.org/",
 
     // true = info panel starts open, false = starts closed
     legendOpen: false,

@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  var FALLBACK_EMBED_URL = "https://www.openstreetmap.org/export/embed.html?bbox=-74.03%2C40.70%2C-73.93%2C40.78&layer=mapnik";
+  var FALLBACK_SOURCE_URL = "https://www.openstreetmap.org/";
+
   var config = window.STORY_CONFIG || {};
   var header = config.header || {};
   var branding = config.branding || {};
@@ -61,13 +64,14 @@
   }
 
   function applyMap() {
-    mapFrameNode.src = map.embedUrl || "about:blank";
+    var embedUrl = typeof map.embedUrl === "string" ? map.embedUrl.trim() : "";
+    var sourceUrl = typeof map.sourceUrl === "string" ? map.sourceUrl.trim() : "";
 
-    if (map.sourceUrl) {
-      mapSourceLinkNode.href = map.sourceUrl;
-    } else {
-      mapSourceLinkNode.style.display = "none";
-    }
+    var hasValidEmbed = /^https?:\/\//i.test(embedUrl) && embedUrl.indexOf("REPLACE_ME") === -1;
+    var hasValidSource = /^https?:\/\//i.test(sourceUrl) && sourceUrl.indexOf("REPLACE_ME") === -1;
+
+    mapFrameNode.src = hasValidEmbed ? embedUrl : FALLBACK_EMBED_URL;
+    mapSourceLinkNode.href = hasValidSource ? sourceUrl : FALLBACK_SOURCE_URL;
   }
 
   function applyLegend() {
