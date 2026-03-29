@@ -30,9 +30,9 @@ Most users only need to edit `story.config.js`.
 	- `pageTitle`
 	- `header.title`
 	- `header.subtitle`
-3. Add your logo file to this folder:
-	- `images/logo.png`
-4. In `story.config.js`, keep `branding.logo` as `"./images/logo.png"` (or change both file name and path to match).
+3. Replace the placeholder logo:
+	- Swap out `images/logo.svg` with your own logo file.
+4. In `story.config.js`, keep `branding.logo` as `"./images/logo.svg"` (or update both the filename on disk and this path to match if you rename it).
 5. Add your map links:
 	- `map.embedUrl`
 	- `map.sourceUrl`

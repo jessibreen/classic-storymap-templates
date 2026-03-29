@@ -49,9 +49,9 @@ window.STORY_CONFIG = {
     showLogo: true,
 
     // Put your logo file path here (inside this repo).
-    // STEP: Add a file at student-template/images/logo.png
+    // STEP: Replace the file at student-template/images/logo.svg with your own.
     // You can rename the file, but then update this path to match.
-    logo: "./images/logo.png",
+    logo: "./images/logo.svg",
 
     // When users click your logo, this link opens.
     // Example: "https://your-school.edu"
