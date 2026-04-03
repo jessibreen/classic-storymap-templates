@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Story Map Swipe</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="story.config.js"></script>
 </head>
 <body>
@@ -62,11 +64,11 @@
         <div id="dragOverlay"></div>
 
         <!-- MAP 1 — RIGHT / BEHIND (always fills the full panel) -->
-        <iframe id="map1Frame" title="Map 1" allowfullscreen></iframe>
+        <div id="map1Container"></div>
 
         <!-- MAP 2 — LEFT / FRONT (clipped by #swipeDiv width) -->
         <div id="swipeDiv">
-          <iframe id="map2Frame" title="Map 2" allowfullscreen></iframe>
+          <div id="map2Container"></div>
         </div>
 
         <!-- Draggable divider handle -->

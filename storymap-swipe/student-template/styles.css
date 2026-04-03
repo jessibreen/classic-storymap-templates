@@ -126,12 +126,9 @@ html, body {
 }
 
 /* MAP 1 — always fills the full panel, sits behind map 2 */
-#map1Frame {
+#map1Container {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
 }
 
 /* MAP 2 — the clip container; its width is controlled by JS */
@@ -144,14 +141,13 @@ html, body {
   /* width set by app.js */
 }
 
-/* The map 2 iframe is always full-panel-width so it doesn't
-   appear squished inside the clipping container.            */
-#map2Frame {
+/* map2Container is always full-panel-wide (set by JS) so Leaflet
+   renders all tiles — #swipeDiv clips the visual output.        */
+#map2Container {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
-  border: none;
   /* width set by app.js to mapPanel.offsetWidth */
 }
 
